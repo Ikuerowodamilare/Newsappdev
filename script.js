@@ -20,3 +20,8 @@ const init = () => {
     getNews();
     CreateOptions();
 };
+
+window.onload = () => {
+    requestURL = 'https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${apiKey}';
+    init(); 
+}
