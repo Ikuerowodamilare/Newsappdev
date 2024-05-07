@@ -13,7 +13,20 @@ const options = ["General",
 let requestURL;
 
 //Create cards from data source
-const generateUI = (articles) => {};
+const generateUI = (articles) => {
+    for (let item of articles) {
+        let card = document.createElement("div");
+        card.classList.add("news-card");
+        card.innerHTML = `
+        <div class ="news-image-container">
+        <img src="${items.urlToImage || "./newspaper.jpg"} "alt=""/></div>`
+    }
+    <div class = "news-content">
+        <div class = "news-title">
+            ${item.title}
+        </div>
+    </div>
+};
 
 const init = () => {
     optionsContainer.innerHTML = "";
