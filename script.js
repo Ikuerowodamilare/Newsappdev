@@ -19,13 +19,19 @@ const generateUI = (articles) => {
         card.classList.add("news-card");
         card.innerHTML = `
         <div class ="news-image-container">
-        <img src="${items.urlToImage || "./newspaper.jpg"} "alt=""/></div>`
+        <img src="${items.urlToImage || "./newspaper.jpg"} "alt=""/></div>
     }
     <div class = "news-content">
         <div class = "news-title">
             ${item.title}
         </div>
-    </div>
+        <div class="news-description">
+            ${item.description || item.content || ""}
+        </div>
+        <a href ="${item.url}" target="_blank"
+        class ="view-button">Read More</a>
+    </div>`;
+    container.appendChild(card);
 };
 
 const init = () => {
