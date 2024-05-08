@@ -1,6 +1,6 @@
 const container = document.querySelector(".container");
 const optionsContainer = document.querySelector(".options-container");
-const country = "ca";
+const country = "in";
 const options = ["General",
 "Entertainment",
 "Health",
@@ -54,6 +54,6 @@ const init = () => {
 };
 
 window.onload = () => {
-    requestURL = 'https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${c595de6b0242465dbca75892acea08cb}';
+    requestURL = 'https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${apiKey}';
     init(); 
-}
+};
