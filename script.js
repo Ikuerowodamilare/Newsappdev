@@ -1,62 +1,80 @@
+//API Used: http://newsapi.org/s/india-news-api
 const container = document.querySelector(".container");
 const optionsContainer = document.querySelector(".options-container");
-const country = "ca";
-const options = ["General",
-"Entertainment",
-"Health",
-"Science",
-"Sports",
-"Technology",
+// "in" stands for India
+const country = "in";
+const options = [
+  "general",
+  "entertainment",
+  "health",
+  "science",
+  "sports",
+  "technology",
 ];
 
-//Requests per day
+//100 requests per day
 let requestURL;
 
-//Create cards from data source
+//Create cards from data
 const generateUI = (articles) => {
-    for (let item of articles) {
-        let card = document.createElement("div");
-        card.classList.add("news-card");
-        card.innerHTML = `
-        <div class ="news-image-container">
-        <img src="${items.urlToImage || "./newspaper.jpg"} "alt=""/></div>
-    }
-    <div class = "news-content">
-        <div class = "news-title">
-            ${item.title}
-        </div>
-        <div class="news-description">
-            ${item.description || item.content || ""}
-        </div>
-        <a href ="${item.url}" target="_blank"
-        class ="view-button">Read More</a>
+  for (let item of articles) {
+    let card = document.createElement("div");
+    card.classList.add("news-card");
+    card.innerHTML = `<div class="news-image-container">
+    <img src="${item.urlToImage || "./newspaper.jpg"}" alt="" />
+    </div>
+    <div class="news-content">
+      <div class="news-title">
+        ${item.title}
+      </div>
+      <div class="news-description">
+      ${item.description || item.content || ""}
+      </div>
+      <a href="${item.url}" target="_blank" class="view-button">Read More</a>
     </div>`;
     container.appendChild(card);
+  }
 };
 
-//Calling API
+//News API Call
 const getNews = async () => {
-    container.innerHTML = "";
-    let response = await fetch(requestURL);
-    if (!response.ok) {
-        alert("Data unavailable at the moment. Please try again later");
-        return false;
-    }  
-    let data = await response.json();
-    generateUI(data.articles);
+  container.innerHTML = "";
+  let response = await fetch(`https://newsdata.io/api/1/news?apikey=pub_439130884491b61f415684fe583d6759912c9&q=pegasus&language=en`);
+  if (!response.ok) {
+    alert("Data unavailable at the moment. Please try again later");
+    return false;
+  }
+  let data = await response.json();
+  generateUI(data.articles);
 };
 
+//Category Selection
+const selectCategory = (e, category) => {
+  let options = document.querySelectorAll(".option");
+  options.forEach((element) => {
+    element.classList.remove("active");
+  });
+  requestURL = `https://newsdata.io/api/1/news?apikey=pub_439130884491b61f415684fe583d6759912c9&q=pegasus&language=en`;
+  e.target.classList.add("active");
+  getNews();
+};
+
+//Options Buttons
+const createOptions = () => {
+  for (let i of options) {
+    optionsContainer.innerHTML += `<button class="option ${
+      i == "general" ? "active" : ""
+    }" onclick="selectCategory(event,'${i}')">${i}</button>`;
+  }
+};
 
 const init = () => {
-    optionsContainer.innerHTML = "";
-    getNews();
-    CreateOptions();
+  optionsContainer.innerHTML = "";
+  getNews();
+  createOptions();
 };
 
 window.onload = () => {
-    const country = 'ca'; // Replace 'your_country_code' with the desired country code
-    const apiKey = 'c595de6b0242465dbca75892acea08cb'; // Replace 'your_api_key' with your actual API key
-
-    const requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${apiKey}`;
-    init(); 
+  requestURL = `https://newsdata.io/api/1/news?apikey=pub_439130884491b61f415684fe583d6759912c9&q=pegasus&language=en`;
+  init();
 };
