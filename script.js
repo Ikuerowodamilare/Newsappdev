@@ -39,7 +39,7 @@ const generateUI = (articles) => {
 //News API Call
 const getNews = async () => {
   container.innerHTML = "";
-  let response = await fetch(`https://newsdata.io/api/1/news?apikey=pub_439130884491b61f415684fe583d6759912c9&q=pegasus&language=en`);
+  let response = await fetch(`https://newsdata.io/api/1/news?&q=pegasus&language=en`);
   if (!response.ok) {
     alert("Data unavailable at the moment. Please try again later");
     return false;
@@ -54,7 +54,7 @@ const selectCategory = (e, category) => {
   options.forEach((element) => {
     element.classList.remove("active");
   });
-  requestURL = `https://newsdata.io/api/1/news?apikey=pub_439130884491b61f415684fe583d6759912c9&q=pegasus&language=en`;
+  requestURL = `https://newsdata.io/api/1/news?&q=pegasus&language=en`;
   e.target.classList.add("active");
   getNews();
 };
@@ -75,6 +75,6 @@ const init = () => {
 };
 
 window.onload = () => {
-  requestURL = `https://newsdata.io/api/1/news?apikey=pub_439130884491b61f415684fe583d6759912c9&q=pegasus&language=en`;
+  requestURL = `https://newsdata.io/api/1/news?&q=pegasus&language=en`;
   init();
 };
